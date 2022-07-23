@@ -57,9 +57,12 @@
       const thisProduct = this;
       thisProduct.id = id;
       thisProduct.data = data;
-      console.log('new Product:', thisProduct);
+      //console.log('new Product:', thisProduct);
       thisProduct.renderInMenu();
+      thisProduct.getElements();
       thisProduct.initAccordion();
+      thisProduct.initOrderForm();
+      thisProduct.processOrder();
     }
     renderInMenu() {
       const thisProduct = this;
@@ -72,21 +75,87 @@
       //console.log('menuContainer', menuContainer);
       menuContainer.appendChild(thisProduct.element); // add element to menu 
     }
+
+    getElements() {
+      const thisProduct = this;
+      thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+      thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+      thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+    }
+
     initAccordion() {
       const thisProduct = this;
-      console.log('thisProduct.element', thisProduct.element);
-      const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable); // find the clicable trigger (the element that should react to clicking)
-      clickableTrigger.addEventListener('click', function(event){
+      //console.log('thisProduct.element', thisProduct.element);
+      //const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable); // find the clicable trigger (the element that should react to clicking)
+      thisProduct.accordionTrigger.addEventListener('click', function(event){
         event.preventDefault(); // prevent default action for event 
         const activeProducts = document.querySelectorAll(select.all.menuProductsActive); // find active product (product that has active class)
         activeProducts.forEach(product => {
           if(product != thisProduct.element) {
-           
             product.classList.remove('active');
           }
         })
         thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive); // toggle active class on thisProduct.element 
       });
+    }
+    initOrderForm() {
+      const thisProduct = this;
+      thisProduct.form.addEventListener('submit', function(event) {
+        event.preventDefault();
+      });
+      for(let input of thisProduct.formInputs) {
+        input.addEventListener('change', function() {
+          thisProduct.processOrder();
+        });
+      }
+      thisProduct.cartButton.addEventListener('click', function(event){
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+    }
+
+    processOrder() {
+      const thisProduct = this;
+
+      // Obiekt kategorii to np. sauce, toppings, crust, 
+      // każda kategoria ma swój obiekt z opcjami np. sauce ma w sobie: tomato, cream, a np. toppings posiada olives, redPeppers itd. 
+
+      // covert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      console.log('formData', formData);
+    
+      // set price to default price
+      let price = thisProduct.data.price;
+    
+      // for every category (param)... // paramId TO NAZWA KATEORII 
+      for(let paramId in thisProduct.data.params) {
+        // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
+        const param = thisProduct.data.params[paramId];
+        console.log('paramId', paramId);
+        console.log('param', param);
+    
+        // for every option in this category
+        for(let optionId in param.options) {
+          // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
+          const option = param.options[optionId];
+          console.log('optionId', optionId);
+          console.log('option', option);
+          if(formData[paramId] && formData[paramId].includes(optionId)) {  
+            if(!option.default) {
+              price += option.price;
+            };
+          } else {
+            if(option.default) {
+              price -= option.price;
+            }
+          }
+        }
+      }
+    
+      // update calculated price in the HTML
+      thisProduct.priceElem.innerHTML = price;
     }
   }
 
@@ -108,11 +177,11 @@
     },
     init: function(){
       const thisApp = this;
-      console.log('*** App starting ***');
-      console.log('thisApp:', thisApp);
-      console.log('classNames:', classNames);
-      console.log('settings:', settings);
-      console.log('templates:', templates);
+      // console.log('*** App starting ***');
+      // console.log('thisApp:', thisApp);
+      // console.log('classNames:', classNames);
+      // console.log('settings:', settings);
+      // console.log('templates:', templates);
 
       thisApp.initData();
       thisApp.initMenu();  
