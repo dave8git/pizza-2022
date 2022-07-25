@@ -52,27 +52,70 @@
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   };
 
+  class amountWidget {
+    constructor(element) {// argument jest referencją do elementu w którym widget ma zostać zainicjowany, będzie to div nie sam input ponieważ elementów jest więcej, 
+      const thisWidget = this; 
+      thisWidget.getElements(element);
+      thisWidget.setValue(thisWidget.input.value); 
+      thisWidget.initActions();
+      console.log('AmountWidget:', thisWidget);
+      console.log('constructor arguments: ', element);
+    }
+    getElements(element) {
+      const thisWidget = this;
+      thisWidget.element = element;
+      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    }
+    setValue(value) {
+      const thisWidget = this;
+      const newValue = parseInt(value);
+      console.log('value', value);
+      console.log('newValue', newValue);
+      console.log('thisWidget.value', thisWidget.value);
+
+      if((thisWidget.value !== newValue && !isNaN(newValue)) && ((newValue <= settings.amountWidget.defaultMax) && (newValue >= settings.amountWidget))) {
+        thisWidget.value = newValue;
+      }
+
+      thisWidget.input.value = thisWidget.value; 
+    }
+    initActions() {
+      const thisWidget = this;
+      thisWidget.input.addEventListener('change', function(event) {
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.input.value);
+      });
+      thisWidget.linkDecrease.addEventListener('click', function(event) {
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value-1);
+      });
+      thisWidget.linkIncrease.addEventListener('click', function(event) {
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value+1);
+      });
+    }
+  }
+
   class Product {
     constructor(id, data) {
       const thisProduct = this;
       thisProduct.id = id;
       thisProduct.data = data;
-      //console.log('new Product:', thisProduct);
       thisProduct.renderInMenu();
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
     }
     renderInMenu() {
       const thisProduct = this;
 
       const generatedHTML = templates.menuProduct(thisProduct.data); // generate HTML based on template 
-      //console.log('generatedHTML', generatedHTML);
       thisProduct.element = utils.createDOMFromHTML(generatedHTML); // create element using utils.createElementFromHTML
-      //console.log('thisProduct.element', thisProduct.element);
       const menuContainer = document.querySelector(select.containerOf.menu);// find menu container 
-      //console.log('menuContainer', menuContainer);
       menuContainer.appendChild(thisProduct.element); // add element to menu 
     }
 
@@ -84,12 +127,12 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
+      console.log(thisProduct.amountWidgetElem);
     }
 
     initAccordion() {
       const thisProduct = this;
-      //console.log('thisProduct.element', thisProduct.element);
-      //const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable); // find the clicable trigger (the element that should react to clicking)
       thisProduct.accordionTrigger.addEventListener('click', function(event){
         event.preventDefault(); // prevent default action for event 
         const activeProducts = document.querySelectorAll(select.all.menuProductsActive); // find active product (product that has active class)
@@ -97,7 +140,7 @@
           if(product != thisProduct.element) {
             product.classList.remove('active');
           }
-        })
+        });
         thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive); // toggle active class on thisProduct.element 
       });
     }
@@ -119,34 +162,19 @@
 
     processOrder() {
       const thisProduct = this;
-
-      // Obiekt kategorii to np. sauce, toppings, crust, 
-      // każda kategoria ma swój obiekt z opcjami np. sauce ma w sobie: tomato, cream, a np. toppings posiada olives, redPeppers itd. 
-
-      // covert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('formData', formData);
+      //console.log('formData', formData);
     
-      // set price to default price
       let price = thisProduct.data.price;
-    
-      // for every category (param)... // paramId TO NAZWA KATEORII 
+     
       for(let paramId in thisProduct.data.params) {
-        // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
         const param = thisProduct.data.params[paramId];
-        console.log('paramId', paramId);
-        console.log('param', param);
-    
-        // for every option in this category
         for(let optionId in param.options) {
-          // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
           const option = param.options[optionId];
-          console.log('optionId', optionId);
-          console.log('option', option);
           if(formData[paramId] && formData[paramId].includes(optionId)) {  
             if(!option.default) {
               price += option.price;
-            };
+            }
           } else {
             if(option.default) {
               price -= option.price;
@@ -158,16 +186,17 @@
               foundPicture.classList.add(classNames.menuProduct.imageVisible);
             } else {
               foundPicture.classList.remove(classNames.menuProduct.imageVisible);
-            }
-            
+            }  
           } 
-          console.log('oppppttiooon', option);
-          console.log('foundPicture', foundPicture);
         }
       }
-    
-      // update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
+    }
+    initAmountWidget() {
+      const thisProduct = this;
+
+      thisProduct.amountWidget = new amountWidget(thisProduct.amountWidgetElem);
+      console.log('amountWidget', thisProduct.amountWidget);
     }
   }
 
@@ -179,7 +208,7 @@
       for (let productData in thisApp.data.products) {
         new Product(productData, thisApp.data.products[productData]);
       }
-      console.log('thisApp.data:', thisApp.data);
+      //console.log('thisApp.data:', thisApp.data);
     
     },
     initData: function() {
