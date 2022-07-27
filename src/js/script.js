@@ -56,9 +56,9 @@
     constructor(element) {// argument jest referencją do elementu w którym widget ma zostać zainicjowany, będzie to div nie sam input ponieważ elementów jest więcej, 
       const thisWidget = this; 
       thisWidget.getElements(element);
-      thisWidget.setValue(thisWidget.input.value); 
+      thisWidget.setValue(settings.amountWidget.defaultValue); 
       thisWidget.initActions();
-      console.log('AmountWidget:', thisWidget);
+      //console.log('AmountWidget:', thisWidget);
       console.log('constructor arguments: ', element);
     }
     getElements(element) {
@@ -75,8 +75,9 @@
       console.log('newValue', newValue);
       console.log('thisWidget.value', thisWidget.value);
 
-      if((thisWidget.value !== newValue && !isNaN(newValue)) && ((newValue <= settings.amountWidget.defaultMax) && (newValue >= settings.amountWidget))) {
+      if((thisWidget.value !== newValue && !isNaN(newValue)) && ((newValue <= settings.amountWidget.defaultMax) && (newValue >= settings.amountWidget.defaultMin))) {
         thisWidget.value = newValue;
+        thisWidget.announce();
       }
 
       thisWidget.input.value = thisWidget.value; 
@@ -95,6 +96,11 @@
         event.preventDefault();
         thisWidget.setValue(thisWidget.value+1);
       });
+    }
+    announce() {
+      const thisWidget = this;
+      const event = new Event('updated');
+      thisWidget.element.dispatchEvent(event);
     }
   }
 
@@ -190,13 +196,17 @@
           } 
         }
       }
+      price *= thisProduct.amountWidget.value;
       thisProduct.priceElem.innerHTML = price;
     }
     initAmountWidget() {
       const thisProduct = this;
 
       thisProduct.amountWidget = new amountWidget(thisProduct.amountWidgetElem);
-      console.log('amountWidget', thisProduct.amountWidget);
+      //console.log('amountWidget', thisProduct.amountWidget);
+      thisProduct.amountWidgetElem.addEventListener('updated', function(){
+        thisProduct.processOrder();
+      })
     }
   }
 
