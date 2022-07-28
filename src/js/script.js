@@ -141,12 +141,12 @@
       thisProduct.initOrderForm();
       thisProduct.initAmountWidget();
       thisProduct.processOrder();
-      thisProduct.prepareCartProductParams();
     }
     renderInMenu() {
       const thisProduct = this;
 
       const generatedHTML = templates.menuProduct(thisProduct.data); // generate HTML based on template 
+      console.log(thisProduct);
       thisProduct.element = utils.createDOMFromHTML(generatedHTML); // create element using utils.createElementFromHTML
       const menuContainer = document.querySelector(select.containerOf.menu);// find menu container 
       menuContainer.appendChild(thisProduct.element); // add element to menu 
@@ -269,17 +269,18 @@
     
     prepareCartProduct(){
       const thisProduct = this; 
-
+      //console.log('thisProduct', thisProduct);
       const productSummary = {}; 
       productSummary.id = thisProduct.id;
-      productSummary.name = thisProduct.dom.name;
-      productSummary.amount = thisProduct.dom.amount;
+      productSummary.name = thisProduct.data.name;
+      productSummary.amount = thisProduct.dom.amountWidget.value;
       productSummary.price = thisProduct.dom.price;
       productSummary.priceSinge = thisProduct.dom.priceSingle; 
       productSummary.params = thisProduct.prepareCartProductParams();
-
+      console.log('productSummary', productSummary);
       return productSummary;
     }
+    
     addToCart() {
       const thisProduct = this;
 
@@ -320,8 +321,6 @@
       thisCart.element = utils.createDOMFromHTML(generatedHTML); // create element using utils.createElementFromHTML
       const cartContainer = document.querySelector(select.containerOf.cart);// find menu container 
       cartContainer.appendChild(thisCart.element); // add element to menu 
-      
-      console.log('adding product', menuProduct);
     }
   }
 
@@ -337,7 +336,7 @@
     initCart: function() {
       const thisApp = this;
       const cartElem = document.querySelector(select.containerOf.cart); 
-      console.log('cartElem', cartElem);
+      //console.log('cartElem', cartElem);
       thisApp.cart = new Cart(cartElem);
     },
     initData: function() {
