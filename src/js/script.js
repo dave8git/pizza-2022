@@ -319,7 +319,7 @@
 
       const generatedHTML = templates.cartProduct(menuProduct); // generate HTML based on template 
       thisCart.element = utils.createDOMFromHTML(generatedHTML); // create element using utils.createElementFromHTML
-      const cartContainer = document.querySelector(select.containerOf.cart);// find menu container 
+      const cartContainer = document.querySelector(select.cart.productList);// find menu container 
       console.log(cartContainer);
       cartContainer.appendChild(thisCart.element); // add element to menu 
     }
