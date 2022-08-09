@@ -25,12 +25,14 @@ export class Booking {
   initWidget() {
     const thisBooking = this;
     thisBooking.amountWidgetElem  = new AmountWidget(thisBooking.dom.peopleAmount);
-
-    console.log(thisBooking.dom.amountWidgetElem);
-    thisBooking.dom.peopleAmount.addEventListener('click', function () {
+    thisBooking.amountWidgetElem = new AmountWidget(thisBooking.dom.hoursAmount);
+    //console.log(thisBooking.dom.amountWidgetElem);
+    thisBooking.dom.peopleAmount.addEventListener('click', function (e) {
+      e.preventDefault();
       console.log('działa');
     });
-    thisBooking.dom.hoursAmount.addEventListener('click', function() {
+    thisBooking.dom.hoursAmount.addEventListener('click', function(e) {
+      e.preventDefault();
       console.log('działa 1');
     });
 
