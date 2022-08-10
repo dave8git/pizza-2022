@@ -1,5 +1,3 @@
-import {settings, select} from '../settings.js';
-
 class BaseWidget {
   constructor(wrapperElement, initialValue) {
     const thisWidget = this; 
