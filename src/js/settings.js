@@ -31,19 +31,26 @@ export const select = {
     },
     datePicker: {
       wrapper: '.date-picker',
-      input: `input[name="date"]`,
+      input: 'input[name="date"]',
     },
     hourPicker: {
       wrapper: '.hour-picker',
       input: 'input[type="range"]',
       output: '.output',
     },
+    starters: {
+      input: '.booking-form [name="starter"]',
+    }
   },
   booking: { 
     peopleAmount: '.people-amount',
     hoursAmount: '.hours-amount',
     tables: '.floor-plan .table',
     tableDiv: '.floor-plan',
+    form: '.button-submit',
+    phone: '[name="phone"]',
+    address: '[name="address"]',
+
   },
   nav: {
     links: '.main-nav a',
