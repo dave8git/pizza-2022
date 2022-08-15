@@ -3,17 +3,19 @@ import AmountWidget from './AmountWidget.js';
 export class CartProduct {
   constructor(menuProduct, element) {
     const thisCartProduct = this;
-
-    thisCartProduct.id = menuProduct.id;
+    console.log('menuProduct', menuProduct);
+    //thisCartProduct.id = menuProduct.id;
+    //console.log('menuProduct.id', menuProduct.id);
     thisCartProduct.amount = menuProduct.amount;
+    
     thisCartProduct.price = menuProduct.price;
     thisCartProduct.amountWidget = menuProduct.amountWidget;
     thisCartProduct.priceSingle = menuProduct.priceSingle;
-    console.log('thisCartProduct.priceSingle', menuProduct.priceSingle);
+    //console.log('thisCartProduct.priceSingle', menuProduct.priceSingle);
     thisCartProduct.getElements(element);
     thisCartProduct.initAmountWidget();
     thisCartProduct.initActions();
-    console.log(menuProduct);
+    //console.log(menuProduct);
 
   }
   getElements(element) {

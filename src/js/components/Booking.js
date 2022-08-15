@@ -171,6 +171,7 @@ export class Booking {
     thisBooking.hourAmount = new AmountWidget(thisBooking.dom.hoursAmount);
     thisBooking.datePickerElem = new DatePicker(thisBooking.dom.datePicker);
     thisBooking.hourPickerElem = new HourPicker(thisBooking.dom.hourPicker);
+
     thisBooking.dom.peopleAmount.addEventListener('click', function (e) {
       e.preventDefault();
       console.log('działa');

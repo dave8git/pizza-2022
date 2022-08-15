@@ -68,6 +68,7 @@ const app = {
     thisApp.cart = new Cart(cartElem);
     thisApp.productList = document.querySelector(select.containerOf.menu);
     thisApp.productList.addEventListener('add-to-cart', function (e) {
+      console.log('!!!!!!!!!!!@@@@', e.thisProduct);
       app.cart.add(e.thisProduct);
     });
   },

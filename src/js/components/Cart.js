@@ -60,7 +60,7 @@ export class Cart {
   }
   add(menuProduct) {
     const thisCart = this;
-
+    console.log('menuProduct!!!!!!!!!!!!!!!!!!', menuProduct);
     const generatedHTML = templates.cartProduct(menuProduct);
     thisCart.element = utils.createDOMFromHTML(generatedHTML);
     const cartContainer = document.querySelector(select.cart.productList);

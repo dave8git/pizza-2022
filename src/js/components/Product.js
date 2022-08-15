@@ -164,7 +164,7 @@ export class Product {
         product: thisProduct,
       }
     });
-
+    console.log('product: thisProduct!!!!!!!!!!!!!!!!!!!!!!!!!!!', thisProduct),
     thisProduct.element.dispatchEvent(event);
   }
 }
