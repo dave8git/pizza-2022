@@ -66,7 +66,7 @@ export class Cart {
     const cartContainer = document.querySelector(select.cart.productList);
     //console.log(cartContainer);
     cartContainer.appendChild(thisCart.element); // add element to menu 
-
+    
     thisCart.products.push(new CartProduct(menuProduct, thisCart.element));
     //console.log('thisCart.products', thisCart.products); 
     thisCart.update();
