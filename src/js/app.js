@@ -40,10 +40,9 @@ const app = {
   },
 
   initHome() {
-    const thisProduct = this;
-    const homeSiteElem = document.querySelector(select.containerOf.home);
-    thisProduct.home = new Home(homeSiteElem);
-
+    const thisApp = this;
+    //const homeSiteElem = document.querySelector(select.containerOf.home);
+    thisApp.home = new Home(thisApp.data.carousel);
   },
 
   activePage: function(pageId) {
@@ -76,10 +75,10 @@ const app = {
     thisApp.cart = new Cart(cartElem);
     thisApp.productList = document.querySelector(select.containerOf.menu);
     thisApp.productList.addEventListener('add-to-cart', function(event){
-      console.log(event);
+      // console.log(event);
       app.cart.add(event.detail.product);
     });
-    console.log(thisApp.productList);
+    // console.log(thisApp.productList);
   },
   initBooking: function () {
     const thisApp = this; 
@@ -90,20 +89,32 @@ const app = {
     const thisApp = this;
     thisApp.data = {};
     const url = settings.db.url + '/' + settings.db.products;
-    console.log('url', url);
+    // console.log('url', url);
     fetch(url)
       .then(function (rawResponse) {
         return rawResponse.json();
       })
       .then(function (parsedResponse) {
-        console.log('parsedResponse', parsedResponse);
+        // console.log('parsedResponse', parsedResponse);
         thisApp.data.products = parsedResponse; /* save parsedResponse as thisApp.data.products */
 
         thisApp.initMenu(); /* execute initMenu method */
       });
 
-    console.log('thisApp.data', JSON.stringify(thisApp.data));
+    // console.log('thisApp.data', JSON.stringify(thisApp.data));
+
+    const urlCarousel = settings.db.url + '/' + settings.db.carousel;
+    fetch(urlCarousel)
+      .then(function (rawResponse) {
+        return rawResponse.json(); 
+      })
+      .then(function (parsedResponse) {
+        thisApp.data.carousel = parsedResponse;
+
+        thisApp.initHome();
+      });
   },
+
   init: function () {
     const thisApp = this;
     // console.log('*** App starting ***');
@@ -115,7 +126,6 @@ const app = {
     //thisApp.initMenu();  
     thisApp.initCart();
     thisApp.initPages();
-    thisApp.initHome();
     thisApp.initBooking(); 
   },
 };

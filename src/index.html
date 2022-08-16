@@ -75,9 +75,6 @@
   </div>
   <!-- <div id="product-list" class="product-list container"></div> -->
 
-  <script id="template-home-main" type="text/x-handlebars-template">
-    <b>Text</b>
-  </script>
   <script id="template-home" type="text/x-handlebars-template">
     <section id="home">
       <div class="home-wrapper home-container">
@@ -115,37 +112,19 @@
           </div>
      </section>
      <div id="carouselExampleSlidesOnly" class="carousel slide container-normal" data-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
+      <div class="main-carousel">
+        {{#each slides}}
+        <div class="carousel-cell active">
             <div class="display-flex margin-photo-text">
-              <img src="\images\booking\pizza-3.jpg" class="" alt="pizza">
+              <img src="{{ image }}" class="" alt="pizza">
                   <div class="inner-test-section">
-                      <h5>Obsługa na najwyższym poziomie!</h5>
-                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam, dolorum iure libero dolor reiciendis repellat ad velit aspernatur id veritatis?</p>
-                      <p>- Tomek List</p>
+                      <h5>{{ title }}</h5>
+                      <p>{{ description }}</p>
+                      <p>{{ author }}</p>
                   </div>
             </div>
         </div>
-        <div class="carousel-item">
-          <div class="display-flex margin-photo-text">
-            <img src="\images\booking\pizza-3.jpg" class="" alt="pizza">
-            <div class="inner-test-section">
-              <h5>Super atmosfera!</h5>
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam, dolorum iure libero dolor reiciendis repellat ad velit aspernatur id veritatis?</p>
-              <p>- Michael Smith</p>
-            </div>
-          </div>
-      </div>
-      <div class="carousel-item">
-          <div class="display-flex margin-photo-text">
-              <img src="\images\booking\pizza-3.jpg" class="" alt="pizza">
-              <div class="inner-test-section">
-                  <h5>Tylko pizza!</h5>
-                  <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam, dolorum iure libero dolor reiciendis repellat ad velit aspernatur id veritatis?</p>
-                  <p>- Lester Brown</p>
-              </div>
-          </div>
-      </div>
+        {{/each}}
       <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
@@ -374,6 +353,7 @@
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="./vendor/range-slider.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+  <script src="./vendor/flickity.pkgd.min.js"></script>
   <script src="js/app.js" type="module"></script>
 </body>
 </html>

@@ -122,6 +122,7 @@ export const settings = {
     products: 'products',
     orders: 'orders',
     booking: 'bookings', 
+    carousel: 'carousel',
     event: 'events',
     dateStartParamKey: 'date_gte',
     dateEndParamKey: 'date_lte',

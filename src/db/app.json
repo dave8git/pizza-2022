@@ -254,8 +254,8 @@
           "ppl": 3,
           "starters": ["lemonWater"]
         }
-      ],
-      "bookings": [
+    ],
+   "bookings": [
          {
             "id": 1,
             "date": "2021-08-20", 
@@ -265,5 +265,25 @@
             "ppl": 4, 
             "starters": ["water"]
          }
-      ]
+    ],
+   "carousel": [
+      {
+         "title": "Super atmosfera!",
+         "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam, dolorum iure libero dolor reiciendis repellat ad velit aspernatur id veritatis?",
+         "author": "Michael Smith", 
+         "image": "/images/booking/pizza-1.jpg"
+      },
+      {
+         "title": "Obsługa na najwyższym poziomie!",
+         "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam, dolorum iure libero dolor reiciendis repellat ad velit aspernatur id veritatis?",
+         "author": "Arron Mitchell", 
+         "image": "/images/booking/pizza-2.jpg"
+      },
+      {
+         "title": "Takie sobie przyprawy!",
+         "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam, dolorum iure libero dolor reiciendis repellat ad velit aspernatur id veritatis?",
+         "author": "Kuba Lewy", 
+         "image": "/images/booking/pizza-3.jpg"
+      }
+   ]
  }

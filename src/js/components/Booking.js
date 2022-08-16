@@ -16,7 +16,7 @@ export class Booking {
   }
   getData() {
     const thisBooking = this;
-    console.log('thisBooking.dom.datePicker.minDate', thisBooking.datePickerElem);
+    // console.log('thisBooking.dom.datePicker.minDate', thisBooking.datePickerElem);
     const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePickerElem.minDate);
     const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePickerElem.maxDate);
 
@@ -60,9 +60,9 @@ export class Booking {
       ]);
     })
       .then(function ([bookings, eventsCurrent, eventsRepeat]) {
-        console.log(bookings);
-        console.log(eventsCurrent);
-        console.log(eventsRepeat);
+        // console.log(bookings);
+        // console.log(eventsCurrent);
+        // console.log(eventsRepeat);
         thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
       });
   }
@@ -91,7 +91,7 @@ export class Booking {
       }
     }
 
-    console.log('thisBooking.booked', thisBooking.booked);
+    // console.log('thisBooking.booked', thisBooking.booked);
 
     thisBooking.updateDOM();
   }
@@ -108,7 +108,7 @@ export class Booking {
       }
       thisBooking.booked[date][hourBlock].push(table);
     }
-    console.log('duration', duration);
+    console.log('thisBooking.booked[date]', thisBooking.booked[date]);
   }
 
   updateDOM() {
@@ -126,14 +126,14 @@ export class Booking {
       allAvailable = true;
     }
     for (let table of thisBooking.dom.tables) {
-      let tableId = table.getAttribute(settings.booking.tableIdAttribute);
+      let tableId = parseInt(table.getAttribute(settings.booking.tableIdAttribute));
       if (!isNaN(tableId)) {
         tableId = parseInt(tableId);
       }
       if (
         !allAvailable
         &&
-        thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId) > -1 // metoda includes sprawdza tutaj czy ten element znajduje się w tej tablicy, 
+        thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId) // metoda includes sprawdza tutaj czy ten element znajduje się w tej tablicy, 
       ) {
         table.classList.add(classNames.booking.tableBooked);
       } else {
@@ -161,8 +161,8 @@ export class Booking {
     thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.booking.phone);
     thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.booking.address);
     thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll(select.widgets.starters.input);
-    console.log('phone', thisBooking.dom.wrapper);
-    console.log('starters', thisBooking.dom.starters);
+    // console.log('phone', thisBooking.dom.wrapper);
+    // console.log('starters', thisBooking.dom.starters);
   }
 
   initWidget() {
@@ -174,16 +174,16 @@ export class Booking {
 
     thisBooking.dom.peopleAmount.addEventListener('click', function (e) {
       e.preventDefault();
-      console.log('działa');
+      // console.log('działa');
     });
     thisBooking.dom.hoursAmount.addEventListener('click', function (e) {
       e.preventDefault();
-      console.log('działa 1');
+      // console.log('działa 1');
     });
     thisBooking.dom.wrapper.addEventListener('updated', function () {
       thisBooking.updateDOM();
       thisBooking.resetTable();
-      console.log('updated selected');
+      // console.log('updated selected');
     });
     thisBooking.dom.tablesDiv.addEventListener('click', function (e) {
       e.preventDefault();
@@ -224,36 +224,46 @@ export class Booking {
   sendBooking() {
     const thisBooking = this;
     const url = settings.db.url + '/' + settings.db.booking;
-    const payload = {
-      date: thisBooking.date,
-      hour: thisBooking.hour,
-      table: parseInt(thisBooking.tableInfo),
-      duration: thisBooking.hourAmount.value,
-      ppl: thisBooking.peopleAmount.value, 
-      starters: [],
-      phone: thisBooking.dom.phone.value,
-      mail: thisBooking.dom.address.value,
-    };
-    for(let starter of thisBooking.dom.starters) {
-      console.log('starter', starter);
-      if (starter.checked == true) {
-        payload.starters.push(starter.value);
+    console.log(thisBooking.tableInfo);
+    if(!thisBooking.tableInfo) {
+      alert('prosimy wybrać stolik');
+    } else {
+      const payload = {
+        date: thisBooking.datePickerElem.value,
+        hour: thisBooking.hourPickerElem.value,
+        table: parseInt(thisBooking.tableInfo),
+        duration: thisBooking.hourAmount.value,
+        ppl: thisBooking.peopleAmount.value, 
+        starters: [],
+        phone: thisBooking.dom.phone.value,
+        mail: thisBooking.dom.address.value,
+      };
+      // console.log('!!!!!', thisBooking.hourPickerElem);
+      for(let starter of thisBooking.dom.starters) {
+        // console.log('starter', starter);
+        if (starter.checked == true) {
+          payload.starters.push(starter.value);
+        }
       }
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      };
+      console.log(payload);
+      fetch(url, options).then(function(response) {
+        return response.json();
+      }).then(function (parsedReponse) {
+        console.log('parsedReponse', parsedReponse);
+        thisBooking.resetTable(); 
+        thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
+        thisBooking.updateDOM(); 
+      });
+  
     }
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    };
-    fetch(url, options).then(function(response) {
-      return response.json();
-    }).then(function (parsedReponse) {
-      console.log('parsedReponse', parsedReponse);
-      thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
-    });
-
+    
   }
 }
 

@@ -18,7 +18,7 @@ export class Product {
     const thisProduct = this;
 
     const generatedHTML = templates.menuProduct(thisProduct.data); // generate HTML based on template 
-    console.log(thisProduct);
+    // console.log(thisProduct);
     thisProduct.element = utils.createDOMFromHTML(generatedHTML); // create element using utils.createElementFromHTML
     const menuContainer = document.querySelector(select.containerOf.menu);// find menu container 
     menuContainer.appendChild(thisProduct.element); // add element to menu 
@@ -150,7 +150,7 @@ export class Product {
     productSummary.price = thisProduct.dom.price;
     productSummary.priceSingle = thisProduct.dom.priceSingle;
     productSummary.params = thisProduct.prepareCartProductParams();
-    console.log('productSummary', productSummary);
+    // console.log('productSummary', productSummary);
     return productSummary;
   }
 

@@ -29,7 +29,7 @@ export class Cart {
     thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.cart.phone);
     thisCart.dom.address = thisCart.dom.wrapper.querySelector(select.cart.address);
 
-    console.log(thisCart.dom.deliveryFee);
+    // console.log(thisCart.dom.deliveryFee);
   }
   initAction() {
     const thisCart = this;
@@ -60,7 +60,7 @@ export class Cart {
   }
   add(menuProduct) {
     const thisCart = this;
-    console.log('menuProduct!!!!!!!!!!!!!!!!!!', menuProduct);
+    // console.log('menuProduct!!!!!!!!!!!!!!!!!!', menuProduct);
     const generatedHTML = templates.cartProduct(menuProduct);
     thisCart.element = utils.createDOMFromHTML(generatedHTML);
     const cartContainer = document.querySelector(select.cart.productList);
@@ -97,8 +97,8 @@ export class Cart {
     thisCart.dom.totalPrice.forEach(total => {
       total.innerHTML = thisCart.totalPrice;
     });
-    console.log(thisCart.dom.totalPrice);
-    console.log(thisCart.totalPrice);
+    // console.log(thisCart.dom.totalPrice);
+    // console.log(thisCart.totalPrice);
   }
   sendOrder() { // aby przetestowa ta funkcje nalezy oczywiscie kliknac ORDER w koszyku; 
     const thisCart = this;
@@ -121,15 +121,15 @@ export class Cart {
     // console.log('payload.delivery', payload.deliveryFee);
       
     const url = settings.db.url + '/' + settings.db.orders;
-    console.log(url);
+    // console.log(url);
 
     for(let prod of thisCart.products) {
-      console.log('prod', prod);
+      // console.log('prod', prod);
       payload.products.push(prod.getData());
 
     }
 
-    console.log('payload.products', payload.products);
+    // console.log('payload.products', payload.products);
     const options = {
       method: 'POST',
       headers: {

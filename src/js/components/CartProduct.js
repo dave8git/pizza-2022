@@ -3,7 +3,7 @@ import AmountWidget from './AmountWidget.js';
 export class CartProduct {
   constructor(menuProduct, element) {
     const thisCartProduct = this;
-    console.log('menuProduct', menuProduct);
+    // console.log('menuProduct', menuProduct);
     thisCartProduct.id = menuProduct.id;
     //console.log('menuProduct.id', menuProduct.id);
     thisCartProduct.amount = menuProduct.amount;
