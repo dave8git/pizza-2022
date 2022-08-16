@@ -161,10 +161,9 @@ export class Product {
     const event = new CustomEvent('add-to-cart', {
       bubbles: true,
       detail: {
-        product: thisProduct,
+        product: thisProduct.prepareCartProduct(),
       }
     });
-    console.log('product: thisProduct!!!!!!!!!!!!!!!!!!!!!!!!!!!', thisProduct),
     thisProduct.element.dispatchEvent(event);
   }
 }

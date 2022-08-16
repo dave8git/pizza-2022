@@ -21,6 +21,7 @@
           <h2 class="logo__subtitle">the best homemade Italian food</h2>
         </div>
         <div class="main-nav">
+          <a href="#home">Home</a>
           <a href="#order">Order</a>
           <a href="#booking">Booking</a>
         </div>
@@ -62,6 +63,9 @@
   </header>
 
   <div id="pages">
+    <section id="home">
+      <div class="home-wrapper container"></div>
+    </section>
     <section id="order">
       <div id="product-list" class="product-list container"></div>
     </section>
@@ -71,6 +75,132 @@
   </div>
   <!-- <div id="product-list" class="product-list container"></div> -->
 
+  <script id="template-home-main" type="text/x-handlebars-template">
+    <b>Text</b>
+  </script>
+  <script id="template-home" type="text/x-handlebars-template">
+    <section id="home">
+      <div class="home-wrapper home-container">
+        <section class="intro">
+          <div class="container-normal">
+              <div class="intro-row">
+              <div class="wrapper-picture-seciton image secondary-nav">
+                  <img class="image__img" src="\images\booking\pizza-1.jpg" alt="pizza">
+                  <a href="#order" class="click__img">
+                    <div class="image__overlay">
+                      <div class="image__title">ORDER ONLINE</div>
+                       <p class="image__description">
+                           Here we have a brick wall.
+                       </p>
+                  </div>
+                </a>
+              </div>
+              <div class="wrapper-picture-seciton image secondary-nav">
+                  <img class="image__img" src="\images\booking\pizza-2.jpg" alt="pizza w pizzerii">
+                  <a href="#booking" class="click__img">
+                  <div class="image__overlay">
+                      <div class="image__title">BOOK A TABLE</div>
+                       <p class="image__description">
+                           Here we have a brick wall.
+                       </p>
+                  </div>
+                </a>
+              </div>
+
+              </div>
+              <div class="intro-row flex-column flex-center hello-intro-row">
+                  <h1>Opening Hours:</h1>
+                  <h5>TUE SUN 25PM 25AM</h5>
+              </div>
+          </div>
+     </section>
+     <div id="carouselExampleSlidesOnly" class="carousel slide container-normal" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="display-flex margin-photo-text">
+              <img src="\images\booking\pizza-3.jpg" class="" alt="pizza">
+                  <div class="inner-test-section">
+                      <h5>Obsługa na najwyższym poziomie!</h5>
+                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam, dolorum iure libero dolor reiciendis repellat ad velit aspernatur id veritatis?</p>
+                      <p>- Tomek List</p>
+                  </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+          <div class="display-flex margin-photo-text">
+            <img src="\images\booking\pizza-3.jpg" class="" alt="pizza">
+            <div class="inner-test-section">
+              <h5>Super atmosfera!</h5>
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam, dolorum iure libero dolor reiciendis repellat ad velit aspernatur id veritatis?</p>
+              <p>- Michael Smith</p>
+            </div>
+          </div>
+      </div>
+      <div class="carousel-item">
+          <div class="display-flex margin-photo-text">
+              <img src="\images\booking\pizza-3.jpg" class="" alt="pizza">
+              <div class="inner-test-section">
+                  <h5>Tylko pizza!</h5>
+                  <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam, dolorum iure libero dolor reiciendis repellat ad velit aspernatur id veritatis?</p>
+                  <p>- Lester Brown</p>
+              </div>
+          </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+      </div>
+    </div>
+      <section class="gallery">
+          <div class="container-normal">
+              <div class="gallery-area">
+                  <div class="single-img">
+                      <img src="\images\booking\pizza-4.jpg" alt="">
+                      <div class="overlay">
+                        <i class="fas fa-pizza-slice"></i>
+                    </div>
+                  </div>
+                  <div class="single-img">
+                      <img src="\images\booking\pizza-5.jpg" alt="">
+                      <div class="overlay">
+                        <i class="fas fa-pizza-slice"></i>
+                    </div>
+                  </div>
+                  <div class="single-img">
+                      <img src="\images\booking\pizza-6.jpg" alt="">
+                      <div class="overlay">
+                        <i class="fas fa-pizza-slice"></i>
+                    </div>
+                  </div>
+                  <div class="single-img">
+                      <img src="\images\booking\pizza-7.jpg" alt="">
+                      <div class="overlay">
+                        <i class="fas fa-pizza-slice"></i>
+                    </div>
+                  </div>
+                  <div class="single-img">
+                      <img src="\images\booking\pizza-8.jpg" alt="">
+                      <div class="overlay">
+                        <i class="fas fa-pizza-slice"></i>
+                    </div>
+                  </div>
+                  <div class="single-img">
+                      <img src="\images\booking\pizza-9.jpg" alt="">
+                      <div class="overlay">
+                        <i class="fas fa-pizza-slice"></i>
+                    </div>
+                  </div>
+              </div>
+              <a class="red-links">See more on our instachłam</a>
+          </div> 
+      </div>
+    </section>
+  </script>
   <script id="template-cart-product" type="text/x-handlebars-template">
     <li>
       <div class="widget-amount"> <!-- widget-amount -->
