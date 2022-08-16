@@ -1,11 +1,13 @@
 export const select = {
   templateOf: {
     menuProduct: '#template-menu-product',
+    homeSite: '#template-home',
     cartProduct: '#template-cart-product',
     bookingWidget: '#template-booking-widget',
   },
   containerOf: {
     menu: '#product-list',
+    home: '.home-wrapper',
     cart: '#cart',
     pages: '#pages',
     booking: '.booking-wrapper',
@@ -131,6 +133,9 @@ export const settings = {
 export const templates = {
   menuProduct: Handlebars.compile(
     document.querySelector(select.templateOf.menuProduct).innerHTML
+  ),
+  homeSite: Handlebars.compile(
+    document.querySelector(select.templateOf.homeSite).innerHTML
   ),
   cartProduct: Handlebars.compile(
     document.querySelector(select.templateOf.cartProduct).innerHTML

@@ -102,6 +102,7 @@ export class Product {
     thisProduct.dom.price = price;
     thisProduct.dom.priceElem.innerHTML = price;
   }
+  
   initAmountWidget() {
     const thisProduct = this;
 
@@ -166,6 +167,7 @@ export class Product {
     });
     thisProduct.element.dispatchEvent(event);
   }
+  
 }
 
 export default Product;

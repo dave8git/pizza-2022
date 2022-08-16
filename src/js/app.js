@@ -2,6 +2,7 @@ import {settings, select, classNames} from './settings.js';
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
+import Home from './components/Home.js';
 
 const app = {
   initPages: function () {
@@ -38,6 +39,13 @@ const app = {
     }
   },
 
+  initHome() {
+    const thisProduct = this;
+    const homeSiteElem = document.querySelector(select.containerOf.home);
+    thisProduct.home = new Home(homeSiteElem);
+
+  },
+
   activePage: function(pageId) {
     const thisApp = this;
     /* add class "active" to matching pages, remove from non-matching */
@@ -63,21 +71,13 @@ const app = {
   },
   initCart: function () {
     const thisApp = this;
-    // const cartElem = document.querySelector(select.containerOf.cart);
-    // thisApp.cart = new Cart(cartElem);
-    // thisApp.productList = document.querySelector(select.containerOf.menu);
-    // thisApp.productList.addEventListener('add-to-cart', function (e) {
-    //   console.log('!!!!!!!!!!!@@@@', e.thisProduct);
-    //   app.cart.add(e.thisProduct);
-    // });
-    // console.log('thisApp.productList', thisApp);
 
     const cartElem = document.querySelector(select.containerOf.cart);
     thisApp.cart = new Cart(cartElem);
     thisApp.productList = document.querySelector(select.containerOf.menu);
     thisApp.productList.addEventListener('add-to-cart', function(event){
       console.log(event);
-      event.cart.add(event.detail.product);
+      app.cart.add(event.detail.product);
     });
     console.log(thisApp.productList);
   },
@@ -111,11 +111,11 @@ const app = {
     // console.log('classNames:', classNames);
     // console.log('settings:', settings);
     // console.log('templates:', templates);
-
     thisApp.initData();
     //thisApp.initMenu();  
     thisApp.initCart();
     thisApp.initPages();
+    thisApp.initHome();
     thisApp.initBooking(); 
   },
 };
