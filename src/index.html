@@ -79,7 +79,7 @@
     <section id="home">
       <div class="home-wrapper home-container">
         <section class="intro">
-          <div class="container-normal">
+          <div class="">
               <div class="intro-row">
               <div class="wrapper-picture-seciton image secondary-nav">
                   <img class="image__img" src="\images\booking\pizza-1.jpg" alt="pizza">
@@ -111,29 +111,20 @@
               </div>
           </div>
      </section>
-     <div id="carouselExampleSlidesOnly" class="carousel slide container-normal" data-ride="carousel">
-      <div class="main-carousel">
-        {{#each slides}}
+
+     <div class="main-carousel">
+      {{#each slides}}
         <div class="carousel-cell active">
-            <div class="display-flex margin-photo-text">
-              <img src="{{ image }}" class="" alt="pizza">
-                  <div class="inner-test-section">
-                      <h5>{{ title }}</h5>
-                      <p>{{ description }}</p>
-                      <p>{{ author }}</p>
-                  </div>
-            </div>
-        </div>
-        {{/each}}
-      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
+          <div class="carousel-width">
+            <img src="{{ image }}" class="" alt="pizza">
+                <div class="carousel-width">
+                    <h5>{{ title }}</h5>
+                    <p>{{ description }}</p>
+                    <p>{{ author }}</p>
+                </div>
+          </div>
       </div>
+      {{/each}}
     </div>
       <section class="gallery">
           <div class="container-normal">
