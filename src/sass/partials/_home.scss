@@ -11,6 +11,14 @@
 .container {
   width: 100%;
 }
+
+body {
+  font-size: 16px;
+}
+
+.carousel-side-text {
+  display: flex;
+}
 .container-home {
   max-width: 1200px;
   margin: 0 auto;
@@ -30,6 +38,11 @@ img {
   align-items: center;
 }
 
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .hello-intro-row {
   background-color: tomato;
   text-transform: uppercase;
@@ -38,8 +51,14 @@ img {
 }
 
 .container-normal {
-  width: 80%;
+  //width: 80%;
+  padding-top: 105px;
   margin: auto;
+}
+
+.main-carousel {
+  padding-top: 47px;
+  padding-bottom: 47px;
 }
 
 .intro-row {
@@ -55,7 +74,9 @@ img {
 }
 
 /* gallery image */
-
+.intro {
+  padding-top: 45px;
+}
 .image {
   position: relative;
   width: 50%;
@@ -119,18 +140,56 @@ img {
 }
 
 /*----------------*/
-.main-carousel {
+
+.carouselImage-1 {
+  background-image: url(./../../images/booking/pizza-1.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  //wordWikbackground-size: 100px;
+  width: 660px;
+  height: 320px;
+}
+
+.carouselImage-2 {
+  background-image: url(./../../images/booking/pizza-2.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  //background-size: 100px;
+  width: 660px;
+  height: 320px;
+}
+
+.carouselImage-3 {
+  background-image: url(./../../images/booking/pizza-3.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  //background-size: 100px;
+  width: 660px;
+  height: 320px;
+}
+
+.carousel-text {
+  padding: 40px;
+}
+
+.flickity-button {
+  display: none;
+  }
+// .main-carousel {
   
 
-}
+// }
 
-.carousel-cell {
+// .carousel-cell {
 
-}
+// }
 
-.carousel-width {
+// .carousel-width {
  
-}
+// }
 // .carousel-inner {
 //   padding: 5px;
 // }
@@ -207,7 +266,7 @@ img {
   display: flex;
 }
 
-.fas {
+.fas1 {
   font-size: 30px;
   color: white;
   transition: 0.2s;
